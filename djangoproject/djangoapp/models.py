@@ -12,5 +12,5 @@ class ToDo(models.Model):
 
     title = models.CharField(max_length=50)
     priority = models.CharField(max_length=2, choices=PRIORITY_CHOICES, default=NORMAL_PRIORITY)
-    user = models.ForeignKey(User, on_delete=models.DO_NOTHING)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
