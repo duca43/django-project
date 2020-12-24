@@ -8,5 +8,5 @@ from django.contrib.auth.models import User
 @api_view()
 @permission_classes((IsAuthenticated,))
 def user(request):
-    serializer = UserSerializer(context={'request': request}, instance=request.user)
+    serializer = UserSerializer(request.user)
     return Response({"message": "Your data is retrieved successfully!", "data": serializer.data})
