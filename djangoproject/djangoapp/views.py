@@ -10,7 +10,7 @@ class UserViewSet(viewsets.GenericViewSet,
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
-    @action(detail=False)
+    @action(detail=False, url_path='me', permission_classes=[permissions.IsAuthenticated])
     def get_current_user(self, request):          
         response_serializer = UserSerializer(request.user)
         return response.Response(response_serializer.data, status.HTTP_200_OK)
