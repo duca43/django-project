@@ -1,10 +1,13 @@
 from django.shortcuts import render
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from .serializers import UserSerializer
 from rest_framework import response, status, views, viewsets, mixins
 from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.renderers import TemplateHTMLRenderer, JSONRenderer
+from .models import ToDo
+
+User = get_user_model()
 
 class UserViewSet(viewsets.GenericViewSet,
                  mixins.RetrieveModelMixin):
@@ -34,11 +37,12 @@ class UserViewSet(viewsets.GenericViewSet,
         return response.Response(response_serializer.data, status.HTTP_200_OK)
 
 class HomeView(views.APIView):
-    
+      
     renderer_classes = [TemplateHTMLRenderer]
 
     def get(self, request):
-        return response.Response(template_name='home.html')
+        todos = ToDo.objects.all()
+        return response.Response({'todos': todos}, template_name='home.html')
 
 class TestView(views.APIView):
 
