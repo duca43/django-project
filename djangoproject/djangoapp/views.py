@@ -3,8 +3,7 @@ from django.contrib.auth.models import User
 from .serializers import UserSerializer
 from rest_framework import response, status, views, viewsets, mixins
 from rest_framework.decorators import action
-from rest_framework.permissions import IsAuthenticated
-from .permissions import IsAdminUserForRetrieve
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.renderers import TemplateHTMLRenderer, JSONRenderer
 
 class UserViewSet(viewsets.GenericViewSet,
@@ -13,7 +12,13 @@ class UserViewSet(viewsets.GenericViewSet,
     queryset = User.objects.all()
     serializer_class = UserSerializer
     renderer_classes = [TemplateHTMLRenderer]
-    permission_classes = [IsAdminUserForRetrieve]
+
+    def get_permissions(self):
+        if self.action == 'retrieve':
+            permission_classes = [IsAdminUser]
+        else:
+            permission_classes = []
+        return [permission() for permission in permission_classes]
 
     def retrieve(self, request, pk=None):
         user = super().retrieve(request, pk).data
