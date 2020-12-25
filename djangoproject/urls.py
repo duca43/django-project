@@ -6,7 +6,7 @@ from rest_framework_simplejwt.views import (
     TokenVerifyView
 )
 
-from djangoproject.djangoapp.views import UserViewSet, HomeView
+from djangoproject.djangoapp.views import UserViewSet, HomeView, TestView
 from rest_framework import routers
 
 router = routers.SimpleRouter(trailing_slash=False)
@@ -17,6 +17,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('login/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('login/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('test/', TestView.as_view(), name='test'),
 ]
 
 urlpatterns += router.urls

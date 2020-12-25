@@ -34,3 +34,20 @@ class HomeView(views.APIView):
 
     def get(self, request):
         return response.Response(template_name='home.html')
+
+class TestView(views.APIView):
+
+    def get(self, request):
+        return response.Response(status=status.HTTP_200_OK)
+
+    def post(self, request):
+        return response.Response(status=status.HTTP_201_CREATED)
+
+    def put(self, request):
+        return response.Response(status=status.HTTP_200_OK)
+
+    def patch(self, request):
+        return response.Response(status=status.HTTP_200_OK)
+
+    def delete(self, request):
+        return response.Response(status=status.HTTP_204_NO_CONTENT)
