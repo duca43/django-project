@@ -20,8 +20,7 @@ class UserViewSet(viewsets.GenericViewSet,
             'last_name': user['last_name']
         }
         return response.Response({'user': user_to_return}, template_name='user.html') 
-
-    # Had to set JSONRenderer manually to avoid using of TemplateHTMLRenderer in this method
+        
     @action(detail=False, url_path='me', permission_classes=[IsAuthenticated], renderer_classes=[JSONRenderer]) 
     def get_current_user(self, request):          
         response_serializer = UserSerializer(request.user)
