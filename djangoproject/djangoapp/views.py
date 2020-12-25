@@ -4,6 +4,7 @@ from .serializers import UserSerializer
 from rest_framework import response, status, views, viewsets, mixins
 from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated
+from .permissions import IsAdminUserForRetrieve
 from rest_framework.renderers import TemplateHTMLRenderer, JSONRenderer
 
 class UserViewSet(viewsets.GenericViewSet,
@@ -12,6 +13,7 @@ class UserViewSet(viewsets.GenericViewSet,
     queryset = User.objects.all()
     serializer_class = UserSerializer
     renderer_classes = [TemplateHTMLRenderer]
+    permission_classes = [IsAdminUserForRetrieve]
 
     def retrieve(self, request, pk=None):
         user = super().retrieve(request, pk).data
