@@ -25,3 +25,10 @@ class UserViewSet(viewsets.GenericViewSet,
     def get_current_user(self, request):          
         response_serializer = UserSerializer(request.user)
         return response.Response(response_serializer.data, status.HTTP_200_OK)
+
+class HomeView(views.APIView):
+    
+    renderer_classes = [TemplateHTMLRenderer]
+
+    def get(self, request):
+        return response.Response(template_name='home.html')
