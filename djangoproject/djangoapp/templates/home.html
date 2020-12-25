@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Home page</title>
+</head>
+<body>
+    <h1>Welcome to home page!</h1>
+    <h3>Here is ToDo list:</h3>
+    {% if todos|length == 0 %}
+        There is no any ToDo yet!
+    {% else %}
+        <ul>
+            {% for todo in todos %}
+            <li>{{ todo.title }} (priority: {{ todo.priority }}, made by: {{ todo.user.username }})</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+</body>
+</html>
